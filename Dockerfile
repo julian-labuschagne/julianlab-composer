@@ -7,7 +7,8 @@ MAINTAINER Julian Labuschagne "julian.labuschagne@gmail.co.za"
 ENV REFRESHED_AT 2021-01-08
 
 # Create a non privileged user
-RUN useradd -r -u 1000 -g php php
+RUN groupadd -g 1000 php && \
+    useradd -r -u 1000 -g php php
 
 WORKDIR /home/php
 
