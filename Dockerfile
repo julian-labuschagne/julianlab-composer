@@ -30,6 +30,8 @@ COPY conf/composer/ /var/www/html/
 
 RUN sh install-composer.sh && mv composer.phar /usr/local/bin/composer && rm install-composer.sh
 
+USER php
+
 CMD ["/usr/local/bin/composer"]
 
 VOLUME /home/php
