@@ -6,7 +6,10 @@ FROM php:7.3.11-apache-stretch
 MAINTAINER Julian Labuschagne "julian.labuschagne@gmail.co.za"
 ENV REFRESHED_AT 2021-01-08
 
-WORKDIR /var/www/html
+# Create a non privileged user
+RUN useradd -r -u 1000 -g php php
+
+WORKDIR /home/php
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -29,4 +32,4 @@ RUN sh install-composer.sh && mv composer.phar /usr/local/bin/composer && rm ins
 
 CMD ["/usr/local/bin/composer"]
 
-VOLUME /var/www/html
+VOLUME /home/php
