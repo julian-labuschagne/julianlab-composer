@@ -32,6 +32,7 @@ COPY conf/composer/ /home/php/
 RUN sh install-composer.sh && mv composer.phar /usr/local/bin/composer && rm install-composer.sh
 
 USER php
+WORKDIR /home/php
 
 CMD ["/usr/local/bin/composer"]
 
