@@ -10,8 +10,6 @@ ENV REFRESHED_AT 2021-01-08
 RUN groupadd -g 1000 php && \
     useradd -r -u 1000 -g php php
 
-WORKDIR /home/php
-
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
@@ -27,13 +25,16 @@ RUN docker-php-ext-install -j$(nproc) opcache mysqli pdo_mysql zip && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install -j$(nproc) gd
 
+# Copy the custom php.ini file
+COPY conf/php/ $PHP_INI_DIR/
+
+# Copy the composer install file
 COPY conf/composer/ /home/php/
 
+WORKDIR /home/php
 RUN sh install-composer.sh && mv composer.phar /usr/local/bin/composer && rm install-composer.sh
 
 USER php
-WORKDIR /home/php
-
-CMD ["/usr/local/bin/composer"]
+CMD ["/usr/local/bin/composer $1"]
 
 VOLUME /home/php
