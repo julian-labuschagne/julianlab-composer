@@ -4,7 +4,7 @@
 
 FROM php:7.3.11-apache-stretch
 MAINTAINER Julian Labuschagne "julian.labuschagne@gmail.co.za"
-ENV REFRESHED_AT 2021-01-08
+ENV REFRESHED_AT 2020-12-30
 
 # Create a non privileged user
 RUN groupadd -g 1000 php && \
